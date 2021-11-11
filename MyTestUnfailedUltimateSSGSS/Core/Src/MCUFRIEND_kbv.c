@@ -1,5 +1,5 @@
-#define SUPPORT_7783
-#define ID_NUMBER 0x7783
+#define SUPPORT_8347D
+#define ID_NUMBER 0x4747
 
 #define SUPPORT_0154              //S6D0154 +320 bytes
 #define SUPPORT_1963              //only works with 16BIT bus anyway

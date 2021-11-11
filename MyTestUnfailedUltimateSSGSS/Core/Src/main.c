@@ -77,7 +77,13 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+///Project Variables
+volatile int Rise_Fall_State = 0;
+volatile float Difference = 0.0;
+volatile float IC_Val1 = 0.0;
+volatile float IC_Val2 = 0.0;
+volatile int Is_First_Captured = 0;
+volatile float Distance = 0.0;
 
 /* USER CODE END PV */
 
@@ -197,36 +203,44 @@ int main(void)
 //	HAL_TIM_Base_Start_IT(&htim2);
 
 //	HAL_ADC_Start_DMA(&hadc1, tab, TABLE_LENGTH);
-	LCD_FillScreen(DARKGREY); 
-	initializeField();
-	displayField();
+
+		//Tetris
+//	LCD_FillScreen(DARKGREY); 
+//	initializeField();
+//	displayField();
 	
 	//PWM TRIG START
 	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+	
+	//START ECHO CAPTURE TIMER
+	HAL_TIM_IC_Start_IT(&htim3,TIM_CHANNEL_3);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 //	
-	
   while (1)
   {
-				
-    /* USER CODE END WHILE */
+		printf("La distance en centimetres est : %f\r\n",Distance);
+		LCD_FillScreen(BLACK); 
+		char buf[80]; 
+		sprintf(buf,"Distance:\r\n %f \r\n",Distance); 
+		LCD_SetCursor(0,40); LCD_Printf(buf);
+		/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 		
 		//Random movements for Tetris
-		if (updateField()){ // Quand "updateField" renvoie 1, la partie est perdue.
-        LCD_FillScreen(RED); 
-        while(1);
-    }
-    HAL_Delay(25);
+//		if (updateField()){ // Quand "updateField" renvoie 1, la partie est perdue.
+//        LCD_FillScreen(RED); 
+//        while(1);
+//    }
+//    HAL_Delay(25);
 //    randomDisplaceOrRotate(); // Mouvements aléatoires pour simuler une partie.
-		selectRow(1);
-    HAL_Delay(10);
+////		selectRow(1);
+////    HAL_Delay(10);
 
-    HAL_Delay(75);
+//    HAL_Delay(75);
   }
   /* USER CODE END 3 */
 }
@@ -331,6 +345,47 @@ void HAL_SYSTICK_Callback(void)
     }
 }
 
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM3) 
+	{
+		// TIM2 has captured either rising or falling edge of ECHO signal located at PC8 pin
+		//TODO: store counter value in global variable
+		if (Is_First_Captured==0) // if the first value is not captured
+				{
+//					IC_Val1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_3); // read the first value
+					IC_Val1 = TIM3->CCR3;
+
+					Is_First_Captured = 1;  // set the first captured as true
+				}
+
+				else   // if the first is already captured
+				{
+					IC_Val2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_3);  // read second value
+					if (IC_Val2 > IC_Val1)
+					{
+						Difference = IC_Val2-IC_Val1;
+					}
+
+					else if (IC_Val1 > IC_Val2)
+					{
+						Difference = (0xffff - IC_Val1) + IC_Val2;
+					}
+					Distance = Difference/58.0;
+					Is_First_Captured = 0; // set it back to false
+//					if (Distance < 5.0)
+//					{
+//						Distance = 0.0;
+//					}
+
+				}
+				
+			
+			
+			
+		
+	}
+}
 
 //void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
 //	
