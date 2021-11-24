@@ -156,7 +156,8 @@ bool updateField()
 	bool collision = displaceTetrimino(0, 1, &tetrimino);
 
 	// S'il y a une collision vers le bas, il faut actualiser le puits.
-	if (collision) {
+	if (collision) 
+		{
 		// Remplacer le tetrimino mobile par des blocs dans "Field".
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 4; j++){

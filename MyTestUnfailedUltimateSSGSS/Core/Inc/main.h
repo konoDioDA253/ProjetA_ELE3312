@@ -74,8 +74,6 @@ void Error_Handler(void);
 #define C1_GPIO_Port GPIOC
 #define C2_Pin GPIO_PIN_5
 #define C2_GPIO_Port GPIOC
-#define C3_Pin GPIO_PIN_6
-#define C3_GPIO_Port GPIOC
 #define C4_Pin GPIO_PIN_7
 #define C4_GPIO_Port GPIOC
 #define ECHO_TIM3_CH3_Pin GPIO_PIN_8
