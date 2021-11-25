@@ -3,7 +3,7 @@
 <title>Static Call Graph - [MyTestUnfailedUltimateSSGSS\MyTestUnfailedUltimateSSGSS.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image MyTestUnfailedUltimateSSGSS\MyTestUnfailedUltimateSSGSS.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Nov 18 11:53:19 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Nov 24 21:07:00 2021
 <BR><P>
 <H3>Maximum Stack Usage =        308 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -632,7 +632,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
-<P><STRONG><a name="[70]"></a>HAL_SYSTICK_Callback</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, main.o(i.HAL_SYSTICK_Callback))
+<P><STRONG><a name="[70]"></a>HAL_SYSTICK_Callback</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, main.o(i.HAL_SYSTICK_Callback))
 <BR><BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SYSTICK_IRQHandler
 </UL>
 
@@ -703,8 +703,8 @@ Global Symbols
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM2_Init
 </UL>
 
-<P><STRONG><a name="[82]"></a>HAL_TIM_IC_CaptureCallback</STRONG> (Thumb, 344 bytes, Stack size 8 bytes, main.o(i.HAL_TIM_IC_CaptureCallback))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HAL_TIM_IC_CaptureCallback
+<P><STRONG><a name="[82]"></a>HAL_TIM_IC_CaptureCallback</STRONG> (Thumb, 880 bytes, Stack size 20 bytes, main.o(i.HAL_TIM_IC_CaptureCallback))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = HAL_TIM_IC_CaptureCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IRQHandler
 </UL>
@@ -740,7 +740,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[81]"></a>HAL_TIM_IRQHandler</STRONG> (Thumb, 358 bytes, Stack size 16 bytes, stm32f4xx_hal_tim.o(i.HAL_TIM_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_TIM_IRQHandler &rArr; HAL_TIM_IC_CaptureCallback
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HAL_TIM_IRQHandler &rArr; HAL_TIM_IC_CaptureCallback
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IC_CaptureCallback
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_TriggerCallback
@@ -1137,7 +1137,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f401xe.o(.text)
 </UL>
 <P><STRONG><a name="[23]"></a>TIM3_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.TIM3_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = TIM3_IRQHandler &rArr; HAL_TIM_IRQHandler &rArr; HAL_TIM_IC_CaptureCallback
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = TIM3_IRQHandler &rArr; HAL_TIM_IRQHandler &rArr; HAL_TIM_IC_CaptureCallback
 </UL>
 <BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IRQHandler
 </UL>
@@ -1189,7 +1189,7 @@ Global Symbols
 
 <P><STRONG><a name="[f0]"></a>__1printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
 
-<P><STRONG><a name="[da]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
+<P><STRONG><a name="[d8]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1241,7 +1241,7 @@ Global Symbols
 <P><STRONG><a name="[fb]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
 <P><STRONG><a name="[ca]"></a>copyTetrimino</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, tetris.o(i.copyTetrimino))
-<BR><BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR><BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 </UL>
 
@@ -1264,7 +1264,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;detectWallCollision
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;detectBlockCollision
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 </UL>
 
@@ -1333,7 +1333,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_FillRect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;resetTetrimino
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 </UL>
@@ -1357,7 +1357,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_FillRect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 </UL>
 
@@ -1381,11 +1381,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[42]"></a>main</STRONG> (Thumb, 750 bytes, Stack size 24 bytes, main.o(i.main))
+<P><STRONG><a name="[42]"></a>main</STRONG> (Thumb, 410 bytes, Stack size 24 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 308<LI>Call Chain = main &rArr; updateField &rArr; displayScore &rArr; LCD_Printf &rArr; LCD_DrawChar &rArr; LCD_FillRect &rArr; LCD_SetAddrWindow &rArr; WriteCmdParam4 &rArr; WriteCmdParamN
 </UL>
 <BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initializeField
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayField
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
@@ -1405,7 +1405,7 @@ Global Symbols
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
@@ -1422,7 +1422,7 @@ Global Symbols
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initializeField
 </UL>
 
-<P><STRONG><a name="[d8]"></a>rotateTetrimino</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, tetris.o(i.rotateTetrimino))
+<P><STRONG><a name="[da]"></a>rotateTetrimino</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, tetris.o(i.rotateTetrimino))
 <BR><BR>[Stack]<UL><LI>Max Depth = 180<LI>Call Chain = rotateTetrimino &rArr; eraseTetrimino &rArr; LCD_FillRect &rArr; LCD_SetAddrWindow &rArr; WriteCmdParam4 &rArr; WriteCmdParamN
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eraseTetrimino

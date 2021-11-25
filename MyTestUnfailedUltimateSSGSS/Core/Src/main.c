@@ -98,6 +98,16 @@ volatile int Is_First_CapturedY = 0;
 volatile float DistanceY = -9000.0;
 volatile float tab_valueY[TABLE_LENGTH];
 
+volatile bool FromGaucheToDroite =false;
+volatile bool FromGaucheToDroiteFast =false;
+volatile bool FromDroiteToGauche =false;
+volatile bool FromDroiteToGaucheFast =false;
+volatile bool notDroiteGauche=false;
+volatile bool notGaucheDroite=false;
+volatile bool versLeBas=false;
+volatile bool isRotating=false;
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -232,7 +242,7 @@ int main(void)
 	HAL_TIM_IC_Start_IT(&htim3,TIM_CHANNEL_1);
 	
 	unsigned int a = 0;
-
+	printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ \r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -244,45 +254,77 @@ int main(void)
 //		token25 = 0;
 //		printf("La distance3 en centimetres est : %f\r\n",tab_valueX[3]);
 //		printf("La distance2 en centimetres est : %f\r\n",tab_valueX[2]);
-//		printf("La distanceX en centimetres est : %f\r\n",DistanceX);
-//			printf("La distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\n",tab_valueY[3], tab_valueY[2]);
 		if(a%2 ==0)
 		{
+			printf("\n\nLa distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\nLa distanceY1 en centimetres est : %f\r\nLa distanceY0 en centimetres est : %f\r\n",tab_valueY[3],tab_valueY[2],tab_valueY[1],tab_valueY[0]);
+//			printf("La distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\n",tab_valueY[3], tab_valueY[2]);
 			//Écrire code logique ici
 //			printf("La distance initiale1 est : %f\r\n La distance actuelle1 est : %f\r\nLa distance initiale2 est : %f\r\n La distance actuelle2 est : %f\r\n",tab_value[0], tab_value[1],tab_value[2],tab_value[3]);
-
-			if(			(tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])>1.0)
-				&& ((tab_valueX[2]-tab_valueX[3])< 30.0) && ((tab_valueX[3] < 100.0) )  ) //gauche a droite
+//			bool FromGaucheToDroite = (tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])> 3.0)
+//															&& ((tab_valueX[2]-tab_valueX[3])< 60.0) && ((DistanceX < 100.0) );
+//			bool FromDroiteToGauche = (tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 3.0)
+//															&& ((tab_valueX[3]-tab_valueX[2])< 60.0)  	&& (DistanceX < 100.0) ;
+			if((FromGaucheToDroite == true) || (FromGaucheToDroiteFast == true)) //gauche a droite
 			{
 //				printf("on va vers la droite!\r\n");
-				displaceTetrimino(1, 0, &tetrimino);
+				if (FromGaucheToDroite == true)
+				{
+					displaceTetrimino(1, 0, &tetrimino);
+				}
+				if (FromGaucheToDroiteFast == true)
+				{
+					displaceTetrimino(1, 0, &tetrimino);
+					displaceTetrimino(1, 0, &tetrimino);
+					displaceTetrimino(1, 0, &tetrimino);
+//					printf("SANIC_SPEED_SANIC_SPEED_SANIC_SPEED_SANIC_SPEED_SANIC_SPEED!!!!! RIIGHT\r\n");
+				}
 			}
-			if(			(tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 1.0)
-						&& ((tab_valueX[3]-tab_valueX[2])< 30.0)  	&& ((tab_valueX[3] < 100.0)) 			) //droite a gauche
+			if((FromDroiteToGauche == true) || (FromDroiteToGaucheFast == true)) //droite a gauche
 			{
 //				printf("on va vers la gauche!\r\n");
-				displaceTetrimino(-1, 0, &tetrimino);
+				if (FromDroiteToGauche == true)
+				{
+					displaceTetrimino(-1, 0, &tetrimino);
+				}
+				if (FromDroiteToGaucheFast == true)
+				{
+					displaceTetrimino(-1, 0, &tetrimino);
+					displaceTetrimino(-1, 0, &tetrimino);
+					displaceTetrimino(-1, 0, &tetrimino);
+//					printf("SANIC_SPEED_SANIC_SPEED_SANIC_SPEED_SANIC_SPEED_SANIC_SPEED!!!!! LEEFT\r\n");
+				}
 			}
-			bool notDroiteGauche = !((tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 1.0)
-															&& ((tab_valueX[3]-tab_valueX[2])< 30.0)  	&& ((tab_valueX[3] < 100.0)) );
-			bool notGaucheDroite = !((tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])>1.0)
-															&& ((tab_valueX[2]-tab_valueX[3])< 30.0) && ((tab_valueX[3] < 100.0) ));
-			bool versLeBas = (tab_valueY[3] < tab_valueY[2]) && (tab_valueY[2]-tab_valueY[3] < 30.0 ) && (tab_valueY[2]-tab_valueY[3] > 3.0 ) && (DistanceY > 0);
-			if( versLeBas && notDroiteGauche && notGaucheDroite)
+//			bool notDroiteGauche = !((tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 3.0)
+//															&& ((tab_valueX[3]-tab_valueX[2])< 60.0)  	&& (DistanceX < 100.0) );
+//			bool notGaucheDroite = !((tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])> 3.0)
+//															&& ((tab_valueX[2]-tab_valueX[3])< 60.0) && ((DistanceX < 100.0) ));
+//			bool versLeBas = (tab_valueY[3] < tab_valueY[2]) && (tab_valueY[2]-tab_valueY[3] < 50.0 ) 
+//												&& (tab_valueY[2]-tab_valueY[3] > 5.0 ) && (DistanceY > 0.0) && (DistanceY < 100.0);
+			if( versLeBas )	//éxécuter une descente vers le bas
 			{
-					while(  (!displaceTetrimino(0, 1, &tetrimino)) )
+				printf("Descente vers le bas!!!!!!!!\r\n");
+				for(  unsigned int i = 0; i < 9000; i++ )
+				{
+					
+					if (displaceTetrimino(0, 1, &tetrimino)) //ne plus descendre si collision
 					{
+						break;
 					}
-//								displaceTetrimino(0, 1, &tetrimino);
-//								printf("On descend vers le bas:\r\n");
+					
+				}
+//				HAL_Delay(1000);
+				while(token25 == 0); //Wait 2000 ms
+				token25 = 0;
+//				displaceTetrimino(0, 1, &tetrimino);
 			}
-			if( (tab_valueY[3]-tab_valueY[2] > 100.0) &&  notGaucheDroite && notDroiteGauche && (DistanceY > 0.0) 
-				&& (tab_valueY[2] !=0.0)  ) 				
+//			bool isRotating = (tab_valueY[3]-tab_valueY[2] > 100.0) &&  notGaucheDroite && notDroiteGauche 
+//													&& (DistanceY > 0.0) 	&& (tab_valueY[2] !=0.0);
+			if((isRotating == true) && (!versLeBas)) 				
 			{
-				
-							rotateTetrimino(&tetrimino);
-							printf("La distanceY initiale 1 en centimetres est : %f\r\nLa distanceY finale 1 en centimetres est : %f\r\nLa distanceY initiale 2 en centimetres est : %f\r\nLa distanceY finale 2 en centimetres est : %f\r\n", tab_valueY[0], tab_valueY[1],tab_valueY[2],tab_valueY[3]);
-							printf(" Rotation !!:\r\n");
+				rotateTetrimino(&tetrimino);
+//				printf("Executer Rotation:\r\n");
+//				printf("La distanceY initiale 1 en centimetres est : %f\r\nLa distanceY finale 1 en centimetres est : %f\r\nLa distanceY initiale 2 en centimetres est : %f\r\nLa distanceY finale 2 en centimetres est : %f\r\n", tab_valueY[0], tab_valueY[1],tab_valueY[2],tab_valueY[3]);
+				printf(" Rotation !!:\r\n");
 			}
 			a++;
 		}
@@ -300,9 +342,7 @@ int main(void)
         LCD_FillScreen(RED); 
         while(1);
     }
-//    HAL_Delay(25);
-		while(token25 == 0);
-		token25 = 0;
+    HAL_Delay(25);
 //    randomDisplaceOrRotate(); // Mouvements aléatoires pour simuler une partie.
 		
 		//tests
@@ -314,7 +354,7 @@ int main(void)
 //		selectRow(1);
 //    HAL_Delay(10);
 
-    HAL_Delay(75);
+    HAL_Delay(125);
   }
   /* USER CODE END 3 */
 }
@@ -390,7 +430,7 @@ return ch;
 void HAL_SYSTICK_Callback(void) 
 {    
 	local_time++;
-	if (local_time%100 == 0)
+	if (local_time%1000 == 0)
 	{
 		token25 = 1;
 	}
@@ -497,6 +537,21 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 						Is_First_CapturedY = 0; // set it back to false
 					}			
 		 }
+		FromGaucheToDroite = (tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])> 1.5)
+															&& ((tab_valueX[2]-tab_valueX[3])< 15.0) && ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0) );
+		FromGaucheToDroiteFast = (tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])>= 15.0 )
+															&& ((tab_valueX[2]-tab_valueX[3])< 60.0) && ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0));
+		FromDroiteToGauche = (tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 1.5)
+															&& ((tab_valueX[3]-tab_valueX[2])< 15.0)  	&& ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0)) ;
+		FromDroiteToGaucheFast = (tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])>= 15.0)
+															&& ((tab_valueX[3]-tab_valueX[2])< 60.0)  	&& ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0)) ;
+//		notDroiteGauche = !((tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 3.0)
+//														&& ((tab_valueX[3]-tab_valueX[2])< 60.0)  	&& (DistanceX < 100.0) );
+//		notGaucheDroite = !((tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])> 3.0)
+//														&& ((tab_valueX[2]-tab_valueX[3])< 60.0) && ((DistanceX < 100.0) ));
+		versLeBas = (tab_valueY[3] < tab_valueY[2]) && (tab_valueY[2]-tab_valueY[3] < 50.0 ) 
+											&& (tab_valueY[2]-tab_valueY[3] > 5.0 ) && (DistanceY > 0.0) && (tab_valueY[3] < 100.0) && (tab_valueY[2] < 100.0);
+		isRotating =  (tab_valueY[3]-tab_valueY[2] > 100.0)	&& (DistanceY > 0.0) 	&& (tab_valueY[2] !=0.0);
 //		}
 //	}	
 	

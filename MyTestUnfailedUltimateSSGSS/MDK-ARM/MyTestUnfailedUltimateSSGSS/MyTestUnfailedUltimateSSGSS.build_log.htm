@@ -32,49 +32,63 @@ compiling main.c...
   void erasePreviewTetrimino();
 ../Core/Inc/tetris.h(228): warning:  #1295-D: Deprecated declaration displayPreviewTetrimino - give arg types
   void displayPreviewTetrimino();
-../Core/Src/main.c(254): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if(			(tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])>1.0)
-../Core/Src/main.c(255): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  				&& ((tab_valueX[2]-tab_valueX[3])< 30.0) && ((tab_valueX[3] < 100.0) )  ) //gauche a droite
-../Core/Src/main.c(255): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  				&& ((tab_valueX[2]-tab_valueX[3])< 30.0) && ((tab_valueX[3] < 100.0) )  ) //gauche a droite
-../Core/Src/main.c(260): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if(			(tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 1.0)
-../Core/Src/main.c(261): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  						&& ((tab_valueX[3]-tab_valueX[2])< 30.0)  	&& ((tab_valueX[3] < 100.0)) 			) //droite a gauche
-../Core/Src/main.c(261): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  						&& ((tab_valueX[3]-tab_valueX[2])< 30.0)  	&& ((tab_valueX[3] < 100.0)) 			) //droite a gauche
-../Core/Src/main.c(266): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			bool notDroiteGauche = !((tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 1.0)
-../Core/Src/main.c(267): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  															&& ((tab_valueX[3]-tab_valueX[2])< 30.0)  	&& ((tab_valueX[3] < 100.0)) );
-../Core/Src/main.c(267): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  															&& ((tab_valueX[3]-tab_valueX[2])< 30.0)  	&& ((tab_valueX[3] < 100.0)) );
-../Core/Src/main.c(268): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			bool notGaucheDroite = !((tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])>1.0)
-../Core/Src/main.c(269): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  															&& ((tab_valueX[2]-tab_valueX[3])< 30.0) && ((tab_valueX[3] < 100.0) ));
-../Core/Src/main.c(269): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  															&& ((tab_valueX[2]-tab_valueX[3])< 30.0) && ((tab_valueX[3] < 100.0) ));
-../Core/Src/main.c(270): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			bool versLeBas = (tab_valueY[3] < tab_valueY[2]) && (tab_valueY[2]-tab_valueY[3] < 30.0 ) && (tab_valueY[2]-tab_valueY[3] > 3.0 ) && (DistanceY > 0);
-../Core/Src/main.c(270): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			bool versLeBas = (tab_valueY[3] < tab_valueY[2]) && (tab_valueY[2]-tab_valueY[3] < 30.0 ) && (tab_valueY[2]-tab_valueY[3] > 3.0 ) && (DistanceY > 0);
-../Core/Src/main.c(279): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if( (tab_valueY[3]-tab_valueY[2] > 100.0) &&  notGaucheDroite && notDroiteGauche && (DistanceY > 0.0) 
-../Core/Src/main.c(279): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if( (tab_valueY[3]-tab_valueY[2] > 100.0) &&  notGaucheDroite && notDroiteGauche && (DistanceY > 0.0) 
-../Core/Src/main.c(280): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  				&& (tab_valueY[2] !=0.0)  ) 				
-../Core/Src/main.c(457): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+../Core/Src/main.c(497): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   						DistanceX = DifferenceX/58.0;
-../Core/Src/main.c(492): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+../Core/Src/main.c(532): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   						DistanceY = DifferenceY/58.0;
-../Core/Src/main.c: 21 warnings, 0 errors
+../Core/Src/main.c(540): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		FromGaucheToDroite = (tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])> 1.5)
+../Core/Src/main.c(541): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[2]-tab_valueX[3])< 15.0) && ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0) );
+../Core/Src/main.c(541): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[2]-tab_valueX[3])< 15.0) && ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0) );
+../Core/Src/main.c(541): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[2]-tab_valueX[3])< 15.0) && ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0) );
+../Core/Src/main.c(542): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		FromGaucheToDroiteFast = (tab_valueX[3] < tab_valueX[2]) && ((tab_valueX[2]-tab_valueX[3])>= 15.0 )
+../Core/Src/main.c(543): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[2]-tab_valueX[3])< 60.0) && ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0));
+../Core/Src/main.c(543): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[2]-tab_valueX[3])< 60.0) && ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0));
+../Core/Src/main.c(543): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[2]-tab_valueX[3])< 60.0) && ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0));
+../Core/Src/main.c(544): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		FromDroiteToGauche = (tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])> 1.5)
+../Core/Src/main.c(545): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[3]-tab_valueX[2])< 15.0)  	&& ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0)) ;
+../Core/Src/main.c(545): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[3]-tab_valueX[2])< 15.0)  	&& ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0)) ;
+../Core/Src/main.c(545): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[3]-tab_valueX[2])< 15.0)  	&& ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0)) ;
+../Core/Src/main.c(546): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		FromDroiteToGaucheFast = (tab_valueX[3] > tab_valueX[2]) && ((tab_valueX[3]-tab_valueX[2])>= 15.0)
+../Core/Src/main.c(547): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[3]-tab_valueX[2])< 60.0)  	&& ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0)) ;
+../Core/Src/main.c(547): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[3]-tab_valueX[2])< 60.0)  	&& ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0)) ;
+../Core/Src/main.c(547): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  															&& ((tab_valueX[3]-tab_valueX[2])< 60.0)  	&& ((tab_valueX[3] < 80.0)&&(tab_valueX[2] < 80.0)) ;
+../Core/Src/main.c(552): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		versLeBas = (tab_valueY[3] < tab_valueY[2]) && (tab_valueY[2]-tab_valueY[3] < 50.0 ) 
+../Core/Src/main.c(553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  											&& (tab_valueY[2]-tab_valueY[3] > 5.0 ) && (DistanceY > 0.0) && (tab_valueY[3] < 100.0) && (tab_valueY[2] < 100.0);
+../Core/Src/main.c(553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  											&& (tab_valueY[2]-tab_valueY[3] > 5.0 ) && (DistanceY > 0.0) && (tab_valueY[3] < 100.0) && (tab_valueY[2] < 100.0);
+../Core/Src/main.c(553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  											&& (tab_valueY[2]-tab_valueY[3] > 5.0 ) && (DistanceY > 0.0) && (tab_valueY[3] < 100.0) && (tab_valueY[2] < 100.0);
+../Core/Src/main.c(553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  											&& (tab_valueY[2]-tab_valueY[3] > 5.0 ) && (DistanceY > 0.0) && (tab_valueY[3] < 100.0) && (tab_valueY[2] < 100.0);
+../Core/Src/main.c(554): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		isRotating =  (tab_valueY[3]-tab_valueY[2] > 100.0)	&& (DistanceY > 0.0) 	&& (tab_valueY[2] !=0.0);
+../Core/Src/main.c(554): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		isRotating =  (tab_valueY[3]-tab_valueY[2] > 100.0)	&& (DistanceY > 0.0) 	&& (tab_valueY[2] !=0.0);
+../Core/Src/main.c(554): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		isRotating =  (tab_valueY[3]-tab_valueY[2] > 100.0)	&& (DistanceY > 0.0) 	&& (tab_valueY[2] !=0.0);
+../Core/Src/main.c: 28 warnings, 0 errors
 linking...
-Program Size: Code=22700 RO-data=3156 RW-data=588 ZI-data=1980  
+Program Size: Code=22944 RO-data=3204 RW-data=596 ZI-data=1980  
 FromELF: creating hex file...
-"MyTestUnfailedUltimateSSGSS\MyTestUnfailedUltimateSSGSS.axf" - 0 Error(s), 21 Warning(s).
+"MyTestUnfailedUltimateSSGSS\MyTestUnfailedUltimateSSGSS.axf" - 0 Error(s), 28 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -101,9 +115,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.4.0
 
    * Component: ARM::CMSIS:DSP:Library:1.8.0
-      Include file:  CMSIS\DSP\Include\arm_math.h
       Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
-Build Time Elapsed:  00:00:11
+      Include file:  CMSIS\DSP\Include\arm_math.h
+Build Time Elapsed:  00:00:15
 </pre>
 </body>
 </html>
