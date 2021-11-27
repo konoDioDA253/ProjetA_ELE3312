@@ -1,4 +1,7 @@
 #include "tetris.h"
+//#include "main.h"
+#include "main.c"
+
 
 /**
  * Fichier d'implémentations des définitions de "tetris.h".
@@ -13,7 +16,7 @@ Tetrimino tetrimino = {0};
 Tetrimino previewTetrimino = {0};
 
 const short TETRIMINO_COLORS[N_TYPES] = {
-	BLACK, BLACK, BLACK, BLACK, BLACK, BLACK, BLACK};
+	GREEN, RED, BLACK, PURPLE, YELLOW, BLUE, ORANGE};
 const short FIELD_COLOR = WHITE;
 const short BACKGROUND_COLOR = DARKGREY;
 const short TEXT_COLOR = BLACK;
@@ -22,7 +25,10 @@ int score = 0;
 int nDeletedLines = 0;
 const int linePoints[4] = {40, 100, 300, 1200};
 
+
 // Logique du jeu.	
+
+
 void initializeField()
 {
 	memset(Field, 0, sizeof(Field[0][0]) * FIELD_H * FIELD_W);
@@ -33,6 +39,22 @@ void initializeField()
 	displayScore();
 	displayNDeletedLines();
 	displayPreviewTetrimino();
+}
+
+void copy( uint8_t* myArray, int index)
+{
+	myArray[0]=255;
+	for (int i=0; i<FIELD_W;i++){
+		myArray[i+1]=Field[index][i];
+	}
+	myArray[FIELD_W+1]=254;
+}
+
+void paste(	uint8_t* buffer,  int row)
+{	
+	for(int i=0; i<FIELD_W;i++){
+		Field[row][i]= buffer[i];
+	}
 }
 
 bool resetTetrimino(Tetrimino* t)
@@ -197,17 +219,58 @@ bool updateField()
 			displayScore();
 			displayNDeletedLines();
 		}
+		//find index of line to transmit AND index of line to put received line in
+		for (int row = FIELD_H -1; row > 0; row--)
+		{
+			bool isLineEmpty = true;
+			for (int col = 0; col < FIELD_W; col++)
+			{
+					if (Field[row][col] != 0)
+					{
+						isLineEmpty = false;
+						break;
+					}
+					if(isLineEmpty)
+					{
+						indexEmpty=row;
+						indexLine=row+1;
+					}
+			}
+		}
+		if ( nLinesToErase == 2) //commencer transmission 1 ligne
+		{
+			//appel copy
+			copy(&data, indexLine);
+		}
+		if(flag_done == 1) //réception complète
+		{
+			//appel paste
+			paste(&Rx_buffer, indexEmpty);
+			
+		}
+		
+//			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+		}
 
 		// Réinitialiser le tetrmino et vérifier s'il y a une erreur.
 		bool lostGame = resetTetrimino(&tetrimino);
 		if (lostGame) {
 			return true;
 		}
-	}
+	
 	return false;
 }
 
 void eraseLine(short row)
+{
+	for (short i = row - 1; i > 0; i--){
+		for (short col = 0; col < FIELD_W; col++){
+			Field[i + 1][col] = Field[i][col];
+		}
+	}
+}
+
+void addLine(short row)
 {
 	for (short i = row - 1; i > 0; i--){
 		for (short col = 0; col < FIELD_W; col++){

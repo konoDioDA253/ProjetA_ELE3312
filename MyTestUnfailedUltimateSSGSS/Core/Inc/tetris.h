@@ -204,6 +204,14 @@ void randomDisplaceOrRotate(void);
 void eraseLine(short row);
 
 /**
+ * Ajouter des lignes du tableaux en haut et NE PAS faire monter les blocs
+ * en conséquence.
+ * 
+ * @param lines Tableau de lignes à ajouter.
+ */
+void addLine(short row);
+
+/**
  * Effacer un tetrimino affiché sur l'écran.
  * 
  *  @param t Pointeur vers un tetrimino à effacer.

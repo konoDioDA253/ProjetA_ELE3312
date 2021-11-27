@@ -25,6 +25,7 @@
 #include "usart.h"
 #include "gpio.h"
 
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
@@ -107,7 +108,23 @@ volatile bool notGaucheDroite=false;
 volatile bool versLeBas=false;
 volatile bool isRotating=false;
 
-
+//TRansmission RX TX
+volatile int compteur = 0;
+volatile int compteur_end = 0;
+volatile int flag_send = 0;
+volatile int flag_done = 0;
+volatile int flag_reset = 0;
+static int y = 0;
+int x = 0;
+uint8_t data[FIELD_W+2];
+volatile uint8_t Rx_data;
+volatile uint8_t Rx_buffer[FIELD_W];
+volatile int current_state = 0;
+volatile int changement = 1;
+volatile int flag_lineIsFull = 0;
+volatile bool flag_Collision = false;
+volatile unsigned int indexLine=0;
+volatile unsigned int indexEmpty=0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -126,6 +143,7 @@ void SystemClock_Config(void);
 
 #define SUPPORT_ECRAN_1
 
+void print_array(uint8_t* myArray, int size);
 
 void selectRow (int r) 
 {
@@ -176,6 +194,8 @@ int keyPressed()
 	return -1;
 }
 
+
+
 /* USER CODE END 0 */
 
 /**
@@ -213,6 +233,8 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
+  MX_USART6_UART_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 	// LCD initialization
 	LCD_Begin();
@@ -241,15 +263,43 @@ int main(void)
 	HAL_TIM_IC_Start_IT(&htim3,TIM_CHANNEL_3);
 	HAL_TIM_IC_Start_IT(&htim3,TIM_CHANNEL_1);
 	
-	unsigned int a = 0;
+	
+	HAL_UART_Receive_IT(&huart6, &Rx_data, sizeof(Rx_data));
+	HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_3);
+	TIM1->CCR2 = TIM1->ARR/2;	unsigned int a = 0;
+	
 	printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ \r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 //	
-  while (1)
-  {
+while (1)
+{
+	if(flag_send == 1)
+		{
+//				flag_send = 0;
+//				if(x<20){
+//					data[0] = 255;
+//					data[2+x] = 254;
+//					for(int j=0; j<x+1; j++){
+//						data[j+1] = j+1;
+//					}
+//				x++;
+//				}
+				
+					HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+					
+					
+					
+					
+//					if(flag_done == 1){
+//						flag_done = 0;
+//						print_array(&Rx_buffer[0], y);
+//					}		
+			
+			
+		}		
 //		while(token25 == 0);
 //		token25 = 0;
 //		printf("La distance3 en centimetres est : %f\r\n",tab_valueX[3]);
@@ -257,6 +307,7 @@ int main(void)
 		if(a%2 ==0)
 		{
 			printf("\n\nLa distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\nLa distanceY1 en centimetres est : %f\r\nLa distanceY0 en centimetres est : %f\r\n",tab_valueY[3],tab_valueY[2],tab_valueY[1],tab_valueY[0]);
+//			printf("\n\nLa distanceX3 en centimetres est : %f\r\nLa distanceX2 en centimetres est : %f\r\nLa distanceX1 en centimetres est : %f\r\nLa distanceX0 en centimetres est : %f\r\n",tab_valueX[3],tab_valueX[2],tab_valueX[1],tab_valueX[0]);
 //			printf("La distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\n",tab_valueY[3], tab_valueY[2]);
 			//Écrire code logique ici
 //			printf("La distance initiale1 est : %f\r\n La distance actuelle1 est : %f\r\nLa distance initiale2 est : %f\r\n La distance actuelle2 est : %f\r\n",tab_value[0], tab_value[1],tab_value[2],tab_value[3]);
@@ -434,6 +485,16 @@ void HAL_SYSTICK_Callback(void)
 	{
 		token25 = 1;
 	}
+	compteur++;
+	
+	if(compteur == 1000){
+		flag_send = 1;
+		compteur = 0;
+		compteur_end++;
+	}
+	if(compteur_end >= 22){
+		flag_send = 0;
+	}
 	//Tetris with manual keyboard commands :
 //	 static bool left = false;
 //    static bool right = false;
@@ -465,10 +526,51 @@ void HAL_SYSTICK_Callback(void)
 //    }
 }
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) 
+{
+	
+	switch (current_state){
+		case 0:
+			if (Rx_data == 255){
+				current_state = 1;
+				y = 0;
+			}
+			break;
+		case 1:
+			if (Rx_data == 254){
+				current_state = 0;
+				flag_done = 1;
+			}
+			else {
+				Rx_buffer[y] = Rx_data;
+				flag_done = 1;
+				y++;
+			}
+			break;
+			
+	}
+  HAL_UART_Receive_IT(&huart6, &Rx_data, sizeof(Rx_data)); 
+}
+
+void print_array(uint8_t* myArray, int size) {
+    printf("[");
+    for(int i=0; i<size-1; i++) {
+        printf("%i, ", myArray[i]);
+    }
+    printf("%i]\n\r", myArray[size-1]); 
+}
+
+
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 //	if(htim->Instance == TIM3)
 //	{
+	    if(htim->Instance == TIM4){
+        if(changement)HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+        else HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_2);
+    }
+    changement = !changement;
+		
 		if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_3) //Channel 3 is for X inputs, linked to PC8
 		{
 			// TIM2 has captured either rising or falling edge of ECHO signal located at PC8 pin
@@ -551,7 +653,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 //														&& ((tab_valueX[2]-tab_valueX[3])< 60.0) && ((DistanceX < 100.0) ));
 		versLeBas = (tab_valueY[3] < tab_valueY[2]) && (tab_valueY[2]-tab_valueY[3] < 50.0 ) 
 											&& (tab_valueY[2]-tab_valueY[3] > 5.0 ) && (DistanceY > 0.0) && (tab_valueY[3] < 100.0) && (tab_valueY[2] < 100.0);
-		isRotating =  (tab_valueY[3]-tab_valueY[2] > 100.0)	&& (DistanceY > 0.0) 	&& (tab_valueY[2] !=0.0);
+		isRotating =  (tab_valueY[3]-tab_valueY[2] > 50.0)	&& (DistanceY > 0.0) 	&& (tab_valueY[2] !=0.0);
 //		}
 //	}	
 	

@@ -1201,7 +1201,7 @@ static void init_table16(const void *table, int16_t size)
 
 void LCD_Begin(void)
 {
-		//uint16_t ID = LCD_ReadID();
+//		uint16_t ID = LCD_ReadID();
 		uint16_t ID = ID_NUMBER;
 		
     int16_t *p16;               //so we can "write" to a const protected variable.
