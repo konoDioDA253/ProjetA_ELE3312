@@ -145,6 +145,7 @@ void SystemClock_Config(void);
 
 void print_array(uint8_t* myArray, int size);
 
+
 void selectRow (int r) 
 {
 	if (r==1) HAL_GPIO_WritePin(R1_GPIO_Port, R1_Pin, GPIO_PIN_RESET);
@@ -193,6 +194,119 @@ int keyPressed()
 	}
 	return -1;
 }
+
+void copy( uint8_t* myArray, int index)
+{
+	myArray[0]=255;
+	for (int i=0; i<FIELD_W;i++){
+		myArray[i+1]=Field[index][i];
+	}
+	myArray[FIELD_W+1]=254;
+}
+
+void paste(	uint8_t* buffer,  int row)
+{	
+	for(int i=0; i<FIELD_W;i++){
+		Field[row][i]= buffer[i];
+	}
+}
+
+bool updateField()
+{
+	
+	
+	
+	// Faire tomber le tetrimino en mouvement.
+	bool collision = displaceTetrimino(0, 1, &tetrimino);
+
+	// S'il y a une collision vers le bas, il faut actualiser le puits.
+	if (collision) 
+		{
+		// Remplacer le tetrimino mobile par des blocs dans "Field".
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				short row = i + tetrimino.y - 1;
+				short col = j + tetrimino.x;
+				short rotation = tetrimino.rotation % N_ROTATIONS;
+				bool isTetriminoBlockSolid = (
+					TETRIMINOS[tetrimino.type][rotation][i][j]);
+				if (isTetriminoBlockSolid && row < FIELD_H) {
+					// On ajoute 1 au type parce que 0 correspond déjà à une
+					// case vide dans le tableau Field.
+					Field[row][col] = tetrimino.type + 1;
+				}
+			}
+		}
+		
+		// Effacer des lignes si nécessaire.
+		short nLinesToErase = 0;
+		for(short row = FIELD_H - 1; row > 0; row--){
+			bool isLineFull = true;
+			for(short col = 0; col < FIELD_W; col++){
+				if (!Field[row][col]){
+					isLineFull = false;
+					break;
+				}
+			}
+			if (isLineFull) {
+				eraseLine(row);
+				nLinesToErase++;
+				row++;
+			}
+		}
+		if (nLinesToErase) {
+			displayField();
+			score += linePoints[nLinesToErase - 1];
+			nDeletedLines += nLinesToErase;
+			displayScore();
+			displayNDeletedLines();
+		}
+		//find index of line to transmit AND index of line to put received line in
+		for (int row = FIELD_H -1; row > 0; row--)
+		{
+			bool isLineEmpty = true;
+			for (int col = 0; col < FIELD_W; col++)
+			{
+					if (Field[row][col] != 0)
+					{
+						isLineEmpty = false;
+						break;
+					}
+					
+			}
+			if(isLineEmpty)
+			{
+				indexEmpty=row;
+				indexLine=row+1;
+				break;
+			}
+		}
+//		if ( nLinesToErase == 2) //commencer transmission 1 ligne
+//		{
+//			//appel copy
+//			copy((uint8_t*)&data, indexLine);
+//		}
+		copy((uint8_t*)&data, indexLine);
+
+		if(flag_done == 1) //réception complète
+		{
+			//appel paste
+			paste(((uint8_t*)&Rx_buffer), indexEmpty);
+			
+		}
+		
+		
+			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+
+		// Réinitialiser le tetrmino et vérifier s'il y a une erreur.
+		bool lostGame = resetTetrimino(&tetrimino);
+		if (lostGame) {
+			return true;
+		}
+	}
+	return false;
+}
+
 
 
 
@@ -276,38 +390,40 @@ int main(void)
 //	
 while (1)
 {
-	if(flag_send == 1)
-		{
+//	if(flag_send == 1)
+//		{
+
 //				flag_send = 0;
-//				if(x<20){
-//					data[0] = 255;
-//					data[2+x] = 254;
-//					for(int j=0; j<x+1; j++){
-//						data[j+1] = j+1;
-//					}
-//				x++;
-//				}
-				
-					HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+////				if(x<20){
+////					data[0] = 255;
+////					data[2+x] = 254;
+////					for(int j=0; j<x+1; j++){
+////						data[j+1] = j+1;
+////					}
+////				x++;
+////				}
+//				
+////					HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+//					
+//					
+//					
 					
-					
-					
-					
-//					if(flag_done == 1){
-//						flag_done = 0;
-//						print_array(&Rx_buffer[0], y);
-//					}		
+					if(flag_done == 1){
+						flag_done = 0;
+						print_array(&Rx_buffer[0], y);
+					}		
 			
 			
-		}		
+//		}		
 //		while(token25 == 0);
 //		token25 = 0;
 //		printf("La distance3 en centimetres est : %f\r\n",tab_valueX[3]);
 //		printf("La distance2 en centimetres est : %f\r\n",tab_valueX[2]);
+		printf("InedxEmtpy is : %d\r\nInedxLine is : %d\r\n", indexEmpty, indexLine);
 		if(a%2 ==0)
 		{
-			printf("\n\nLa distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\nLa distanceY1 en centimetres est : %f\r\nLa distanceY0 en centimetres est : %f\r\n",tab_valueY[3],tab_valueY[2],tab_valueY[1],tab_valueY[0]);
-//			printf("\n\nLa distanceX3 en centimetres est : %f\r\nLa distanceX2 en centimetres est : %f\r\nLa distanceX1 en centimetres est : %f\r\nLa distanceX0 en centimetres est : %f\r\n",tab_valueX[3],tab_valueX[2],tab_valueX[1],tab_valueX[0]);
+//			printf("\n\nLa distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\nLa distanceY1 en centimetres est : %f\r\nLa distanceY0 en centimetres est : %f\r\n",tab_valueY[3],tab_valueY[2],tab_valueY[1],tab_valueY[0]);
+			printf("\n\nLa distanceX3 en centimetres est : %f\r\nLa distanceX2 en centimetres est : %f\r\nLa distanceX1 en centimetres est : %f\r\nLa distanceX0 en centimetres est : %f\r\n",tab_valueX[3],tab_valueX[2],tab_valueX[1],tab_valueX[0]);
 //			printf("La distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\n",tab_valueY[3], tab_valueY[2]);
 			//Écrire code logique ici
 //			printf("La distance initiale1 est : %f\r\n La distance actuelle1 est : %f\r\nLa distance initiale2 est : %f\r\n La distance actuelle2 est : %f\r\n",tab_value[0], tab_value[1],tab_value[2],tab_value[3]);
@@ -390,8 +506,9 @@ while (1)
 		
 		//Random movements for Tetris
 		if (updateField()){ // Quand "updateField" renvoie 1, la partie est perdue.
-        LCD_FillScreen(RED); 
-        while(1);
+			LCD_FillScreen(DARKGREY); 
+			initializeField();
+			displayField();
     }
     HAL_Delay(25);
 //    randomDisplaceOrRotate(); // Mouvements aléatoires pour simuler une partie.
@@ -492,9 +609,9 @@ void HAL_SYSTICK_Callback(void)
 		compteur = 0;
 		compteur_end++;
 	}
-	if(compteur_end >= 22){
-		flag_send = 0;
-	}
+//	if(compteur_end >= 22){
+//		flag_send = 0;
+//	}
 	//Tetris with manual keyboard commands :
 //	 static bool left = false;
 //    static bool right = false;
@@ -532,6 +649,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	switch (current_state){
 		case 0:
 			if (Rx_data == 255){
+				for(unsigned int i = 0; i < FIELD_W; i++)
+				{
+					Rx_buffer[i] = 0;
+				}
 				current_state = 1;
 				y = 0;
 			}
@@ -542,6 +663,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				flag_done = 1;
 			}
 			else {
+				if(Rx_data > 7)
+				{
+					Rx_data = 0;					
+				}
 				Rx_buffer[y] = Rx_data;
 				flag_done = 1;
 				y++;

@@ -1,6 +1,6 @@
 #include "tetris.h"
 //#include "main.h"
-#include "main.c"
+//#include "main.c"
 
 
 /**
@@ -41,21 +41,6 @@ void initializeField()
 	displayPreviewTetrimino();
 }
 
-void copy( uint8_t* myArray, int index)
-{
-	myArray[0]=255;
-	for (int i=0; i<FIELD_W;i++){
-		myArray[i+1]=Field[index][i];
-	}
-	myArray[FIELD_W+1]=254;
-}
-
-void paste(	uint8_t* buffer,  int row)
-{	
-	for(int i=0; i<FIELD_W;i++){
-		Field[row][i]= buffer[i];
-	}
-}
 
 bool resetTetrimino(Tetrimino* t)
 {
@@ -170,95 +155,6 @@ bool rotateTetrimino(Tetrimino* t)
 		return false;
 	}
 	return true;
-}
-
-bool updateField()
-{
-	// Faire tomber le tetrimino en mouvement.
-	bool collision = displaceTetrimino(0, 1, &tetrimino);
-
-	// S'il y a une collision vers le bas, il faut actualiser le puits.
-	if (collision) 
-		{
-		// Remplacer le tetrimino mobile par des blocs dans "Field".
-		for(int i = 0; i < 4; i++){
-			for(int j = 0; j < 4; j++){
-				short row = i + tetrimino.y - 1;
-				short col = j + tetrimino.x;
-				short rotation = tetrimino.rotation % N_ROTATIONS;
-				bool isTetriminoBlockSolid = (
-					TETRIMINOS[tetrimino.type][rotation][i][j]);
-				if (isTetriminoBlockSolid && row < FIELD_H) {
-					// On ajoute 1 au type parce que 0 correspond déjà à une
-					// case vide dans le tableau Field.
-					Field[row][col] = tetrimino.type + 1;
-				}
-			}
-		}
-		
-		// Effacer des lignes si nécessaire.
-		short nLinesToErase = 0;
-		for(short row = FIELD_H - 1; row > 0; row--){
-			bool isLineFull = true;
-			for(short col = 0; col < FIELD_W; col++){
-				if (!Field[row][col]){
-					isLineFull = false;
-					break;
-				}
-			}
-			if (isLineFull) {
-				eraseLine(row);
-				nLinesToErase++;
-				row++;
-			}
-		}
-		if (nLinesToErase) {
-			displayField();
-			score += linePoints[nLinesToErase - 1];
-			nDeletedLines += nLinesToErase;
-			displayScore();
-			displayNDeletedLines();
-		}
-		//find index of line to transmit AND index of line to put received line in
-		for (int row = FIELD_H -1; row > 0; row--)
-		{
-			bool isLineEmpty = true;
-			for (int col = 0; col < FIELD_W; col++)
-			{
-					if (Field[row][col] != 0)
-					{
-						isLineEmpty = false;
-						break;
-					}
-					if(isLineEmpty)
-					{
-						indexEmpty=row;
-						indexLine=row+1;
-					}
-			}
-		}
-		if ( nLinesToErase == 2) //commencer transmission 1 ligne
-		{
-			//appel copy
-			copy(&data, indexLine);
-		}
-		if(flag_done == 1) //réception complète
-		{
-			//appel paste
-			paste(&Rx_buffer, indexEmpty);
-			
-		}
-		
-//			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
-		}
-
-		// Réinitialiser le tetrmino et vérifier s'il y a une erreur.
-		bool lostGame = resetTetrimino(&tetrimino);
-		if (lostGame) {
-			return true;
-		}
-	
-	return false;
 }
 
 void eraseLine(short row)

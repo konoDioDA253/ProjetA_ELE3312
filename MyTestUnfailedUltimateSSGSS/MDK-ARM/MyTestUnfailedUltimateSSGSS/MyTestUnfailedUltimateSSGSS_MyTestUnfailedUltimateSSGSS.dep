@@ -1,7 +1,7 @@
 Dependencies for Project 'MyTestUnfailedUltimateSSGSS', Target 'MyTestUnfailedUltimateSSGSS': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32f401xe.s)(0x61A28D7F)(--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 535" --pd "_RTE_ SETA 1" --pd "STM32F401xE SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f401xe.lst --xref -o mytestunfailedultimatessgss\startup_stm32f401xe.o --depend mytestunfailedultimatessgss\startup_stm32f401xe.d)
-F (..\Core\Src\MCUFRIEND_kbv.c)(0x61A29C7A)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\..\..\..\STM32Cube\Repository\STM32Cube_FW_F4_V1.26.2\Drivers\CMSIS\DSP\Include-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F401xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F401xE-o mytestunfailedultimatessgss\mcufriend_kbv.o --omf_browse mytestunfailedultimatessgss\mcufriend_kbv.crf --depend mytestunfailedultimatessgss\mcufriend_kbv.d)
+F (..\Core\Src\MCUFRIEND_kbv.c)(0x61A6B274)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\..\..\..\STM32Cube\Repository\STM32Cube_FW_F4_V1.26.2\Drivers\CMSIS\DSP\Include-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F401xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F401xE-o mytestunfailedultimatessgss\mcufriend_kbv.o --omf_browse mytestunfailedultimatessgss\mcufriend_kbv.crf --depend mytestunfailedultimatessgss\mcufriend_kbv.d)
 I (../Core/Inc/MCUFRIEND_kbv.h)(0x6181E1B2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025CC3E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025CC3C)
@@ -52,56 +52,15 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025CC3C)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x6025CC38)
 F (..\Core\Src\shapes.c)(0x61818276)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\..\..\..\STM32Cube\Repository\STM32Cube_FW_F4_V1.26.2\Drivers\CMSIS\DSP\Include-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F401xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F401xE-o mytestunfailedultimatessgss\shapes.o --omf_browse mytestunfailedultimatessgss\shapes.crf --depend mytestunfailedultimatessgss\shapes.d)
 I (../Core/Inc/shapes.h)(0x61818276)
-F (..\Core\Src\tetris.c)(0x61A2BD56)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\..\..\..\STM32Cube\Repository\STM32Cube_FW_F4_V1.26.2\Drivers\CMSIS\DSP\Include-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F401xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F401xE-o mytestunfailedultimatessgss\tetris.o --omf_browse mytestunfailedultimatessgss\tetris.crf --depend mytestunfailedultimatessgss\tetris.d)
-I (../Core/Inc/tetris.h)(0x619FB151)
+F (..\Core\Src\tetris.c)(0x61A6881A)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\..\..\..\STM32Cube\Repository\STM32Cube_FW_F4_V1.26.2\Drivers\CMSIS\DSP\Include-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F401xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F401xE-o mytestunfailedultimatessgss\tetris.o --omf_browse mytestunfailedultimatessgss\tetris.crf --depend mytestunfailedultimatessgss\tetris.d)
+I (../Core/Inc/tetris.h)(0x61A671CE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x6025CC34)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025CC3E)
 I (../Core/Inc/MCUFRIEND_kbv.h)(0x6181E1B2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025CC3E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025CC3C)
 I (../Core/Inc/shapes.h)(0x61818276)
-I (..\Core\Src\main.c)(0x61A2BD56)
-I (../Core/Inc/main.h)(0x61A28D7A)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x61414066)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x61A28D79)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x61414066)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x61414066)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h)(0x61414066)
-I (../Drivers/CMSIS/Include/core_cm4.h)(0x61413F71)
-I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61413F71)
-I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61413F71)
-I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61413F71)
-I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x61413F71)
-I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61414066)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x6025CC3E)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_adc.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x61414066)
-I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x61414066)
-I (../Core/Inc/adc.h)(0x61A28D77)
-I (../Core/Inc/dma.h)(0x61A28D78)
-I (../Core/Inc/tim.h)(0x61A28D78)
-I (../Core/Inc/usart.h)(0x61A28D79)
-I (../Core/Inc/gpio.h)(0x61A28D76)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x6025CC34)
-I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x6025CC38)
-F (../Core/Src/main.c)(0x61A2BD56)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\..\..\..\STM32Cube\Repository\STM32Cube_FW_F4_V1.26.2\Drivers\CMSIS\DSP\Include-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F401xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F401xE-o mytestunfailedultimatessgss\main.o --omf_browse mytestunfailedultimatessgss\main.crf --depend mytestunfailedultimatessgss\main.d)
+F (../Core/Src/main.c)(0x61A6B213)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\..\..\..\STM32Cube\Repository\STM32Cube_FW_F4_V1.26.2\Drivers\CMSIS\DSP\Include-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F401xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F401xE-o mytestunfailedultimatessgss\main.o --omf_browse mytestunfailedultimatessgss\main.crf --depend mytestunfailedultimatessgss\main.d)
 I (../Core/Inc/main.h)(0x61A28D7A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x61414066)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x61A28D79)
@@ -147,7 +106,7 @@ I (../Core/Inc/MCUFRIEND_kbv.h)(0x6181E1B2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025CC3C)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x6025CC38)
 I (../Core/Inc/shapes.h)(0x61818276)
-I (../Core/Inc/tetris.h)(0x619FB151)
+I (../Core/Inc/tetris.h)(0x61A671CE)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025CC3E)
 F (../Core/Src/gpio.c)(0x61A28D76)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\..\..\..\STM32Cube\Repository\STM32Cube_FW_F4_V1.26.2\Drivers\CMSIS\DSP\Include-I.\RTE\_MyTestUnfailedUltimateSSGSS-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-IC:\Users\Bouh\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="535" -D_RTE_ -DSTM32F401xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F401xE-o mytestunfailedultimatessgss\gpio.o --omf_browse mytestunfailedultimatessgss\gpio.crf --depend mytestunfailedultimatessgss\gpio.d)
 I (../Core/Inc/gpio.h)(0x61A28D76)

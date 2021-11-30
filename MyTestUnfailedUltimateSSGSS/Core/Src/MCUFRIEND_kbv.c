@@ -1,5 +1,10 @@
+//#define ECRAN1
+
+#ifdef ECRAN1
+#else
 #define SUPPORT_8347D
 #define ID_NUMBER 0x4747
+#endif
 
 #define SUPPORT_0154              //S6D0154 +320 bytes
 #define SUPPORT_1963              //only works with 16BIT bus anyway
@@ -1201,8 +1206,12 @@ static void init_table16(const void *table, int16_t size)
 
 void LCD_Begin(void)
 {
-//		uint16_t ID = LCD_ReadID();
+	
+	#ifdef ECRAN1
+		uint16_t ID = LCD_ReadID();
+	#else
 		uint16_t ID = ID_NUMBER;
+	#endif
 		
     int16_t *p16;               //so we can "write" to a const protected variable.
     const uint8_t *table8_ads = NULL;

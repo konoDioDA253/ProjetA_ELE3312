@@ -112,6 +112,13 @@ extern const short BACKGROUND_COLOR;
 
 extern const short TEXT_COLOR;
 
+extern volatile int flag_done;
+extern volatile unsigned int indexLine;
+extern volatile unsigned int indexEmpty;
+extern uint8_t data[FIELD_W+2];
+extern volatile uint8_t Rx_buffer[FIELD_W];
+
+
 // ########################## FONCTIONS ##########################
 /**
  * Initialiser le puits "Field" en le remplissant d'éléments nuls. Utile pour
