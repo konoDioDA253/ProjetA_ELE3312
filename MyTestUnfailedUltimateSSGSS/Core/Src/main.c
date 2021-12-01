@@ -78,6 +78,24 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+///////////////////////LAB8 VARIABLES
+#define TABLE_LENGTH_DMA 8000 
+uint32_t tab_value1[TABLE_LENGTH_DMA];
+uint32_t tab_value2[TABLE_LENGTH_DMA];
+volatile uint32_t * tab = tab_value1;
+volatile int flag_done_DMA = 0;
+float A = 0.0;
+float k = 0.65;
+const float pi = 3.14159265358979323846;
+	int i_DMA;
+	double periode = 100.00;
+	int a_DMA = 0;
+	int zz= 0;
+	double constante;
+
+
+
+
 ///Project Variables
 volatile int Rise_Fall_State = 0;
 volatile int token25 =-1;
@@ -124,6 +142,8 @@ volatile int flag_lineIsFull = 0;
 volatile bool flag_Collision = false;
 volatile unsigned int indexLine=0;
 volatile unsigned int indexEmpty=0;
+
+unsigned int level = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -211,6 +231,85 @@ void paste(	uint8_t* buffer,  int row)
 		}
 	}
 }
+void DMA_sound_Extended()
+{
+				///////////////////DMA//////////////////////////
+					HAL_TIM_PWM_Start_DMA(&htim4, TIM_CHANNEL_2, (uint32_t *)tab, TABLE_LENGTH_DMA);		
+
+					flag_done_DMA = 0;
+		
+		for (i_DMA=0;i_DMA<TABLE_LENGTH_DMA;i_DMA++) {
+				double modulo = (i_DMA%((int)(periode)));
+				A = 1+k*sin(4*pi*((float) i_DMA)*(1/8000000.0));
+				double value = 1000*A;
+				if(modulo < periode/2)
+					value = 0*A;
+				tab[i_DMA]=(int) value;
+		}
+		
+		while (flag_done_DMA == 0);
+		
+		if(a_DMA==5){
+			periode/=constante;
+			a_DMA=0;
+			zz++;
+		}
+		
+		if(zz==6){
+			constante = 1/constante; 
+		}
+		
+		
+		if(zz==12){
+			constante = 1/constante; 
+			zz=0;
+			periode=100.00;
+		}
+		
+		a_DMA++;
+//				HAL_TIM_PWM_Stop_DMA(&htim4, TIM_CHANNEL_2);		
+
+}
+
+void DMA_sound_Classic()
+{
+				///////////////////DMA//////////////////////////
+					HAL_TIM_PWM_Start_DMA(&htim4, TIM_CHANNEL_2, (uint32_t *)tab, TABLE_LENGTH_DMA);		
+
+					flag_done_DMA = 0;
+		
+		for (i_DMA=0;i_DMA<TABLE_LENGTH_DMA;i_DMA++) {
+				double modulo = (i_DMA%((int)(periode)));
+				A = 1+k*sin(4*pi*((float) i_DMA)*(1/8000000.0));
+				double value = 1000*A;
+				if(modulo < periode/2)
+					value = 0*A;
+				tab[i_DMA]=(int) value;
+		}
+		
+		while (flag_done_DMA == 0);
+		
+		if(a_DMA==5){
+			periode/=constante;
+			a_DMA=0;
+			zz++;
+		}
+		
+		if(zz==6){
+			constante = 1/constante; 
+		}
+		
+		
+		if(zz==12){
+			constante = 1/constante; 
+			zz=0;
+			periode=100.00;
+		}
+		
+		a_DMA++;
+		HAL_TIM_PWM_Stop_DMA(&htim4, TIM_CHANNEL_2);		
+
+}
 
 bool updateField()
 {
@@ -223,6 +322,7 @@ bool updateField()
 	// S'il y a une collision vers le bas, il faut actualiser le puits.
 	if (collision) 
 		{
+			DMA_sound_Classic();
 		// Remplacer le tetrimino mobile par des blocs dans "Field".
 		for(int i = 0; i < 4; i++){
 			for(int j = 0; j < 4; j++){
@@ -285,12 +385,49 @@ bool updateField()
 		if ( nLinesToErase == 2) //commencer transmission 1 ligne
 		{
 			//appel copy
+//				HAL_TIM_PWM_Start_DMA(&htim4, TIM_CHANNEL_2, (uint32_t *)tab, TABLE_LENGTH_DMA);		
 			copy((uint8_t*)&data, indexLine);
 			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+			///////////////////DMA//////////////////////////
+			DMA_sound_Extended();
+//					flag_done_DMA = 0;
+//		
+//		for (i_DMA=0;i_DMA<TABLE_LENGTH_DMA;i_DMA++) {
+//				double modulo = (i_DMA%((int)(periode)));
+//				A = 1+k*sin(4*pi*((float) i_DMA)*(1/80000.0));
+//				double value = 1000*A;
+//				if(modulo < periode/2)
+//					value = 0*A;
+//				tab[i_DMA]=(int) value;
+//		}
+//		
+//		while (flag_done_DMA == 0);
+//		
+//		if(a_DMA==5){
+//			periode/=constante;
+//			a_DMA=0;
+//			zz++;
+//		}
+//		
+//		if(zz==6){
+//			constante = 1/constante; 
+//		}
+//		
+//		
+//		if(zz==12){
+//			constante = 1/constante; 
+//			zz=0;
+//			periode=100.00;
+//		}
+//		
+//		a_DMA++;
+//				HAL_TIM_PWM_Stop_DMA(&htim4, TIM_CHANNEL_2);		
+
 		}
 		if ( nLinesToErase == 3) //commencer transmission 1 ligne
 		{
 			//appel copy
+			DMA_sound_Extended();
 			copy((uint8_t*)&data, indexLine);
 			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
 			eraseLine(indexLine);
@@ -298,6 +435,7 @@ bool updateField()
 		if ( nLinesToErase == 4) //commencer transmission 1 ligne
 		{
 			//appel copy
+			DMA_sound_Extended();
 			copy((uint8_t*)&data, indexLine);
 			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
 			copy((uint8_t*)&data, indexLine+1);
@@ -325,6 +463,7 @@ bool updateField()
 		if (lostGame) {
 			return true;
 		}
+		
 	}
 	return false;
 }
@@ -371,6 +510,7 @@ int main(void)
   MX_TIM4_Init();
   MX_USART6_UART_Init();
   MX_TIM1_Init();
+  MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
 	// LCD initialization
 	LCD_Begin();
@@ -387,12 +527,20 @@ int main(void)
 //	HAL_ADC_Start_DMA(&hadc1, tab, TABLE_LENGTH);
 
 		//Tetris
-	LCD_FillScreen(DARKGREY); 
+	LCD_FillScreen(DARKCYAN); 
 	initializeField();
 	displayField();
+	LCD_DrawRect(80, 20, 100, 30, RED);
+	LCD_DrawChar(90, 30, 'T', RED, DARKCYAN, 2);	LCD_DrawChar(100, 30, 'E', RED, DARKCYAN, 2);	LCD_DrawChar(110, 30, 'T', RED, DARKCYAN, 2);	LCD_DrawChar(120, 30, 'R', RED, DARKCYAN, 2);	LCD_DrawChar(130, 30, 'I', RED, DARKCYAN, 2);	LCD_DrawChar(140, 30, 'S', RED, DARKCYAN, 2);
+	LCD_DrawChar(200, 60, 'L', RED, DARKCYAN, 3);	LCD_DrawChar(200, 90, 'E', RED, DARKCYAN, 3);	LCD_DrawChar(200, 120, 'V', RED, DARKCYAN, 3);	LCD_DrawChar(200, 150, 'E', RED, DARKCYAN, 3);	LCD_DrawChar(200, 180, 'L', RED, DARKCYAN, 3);
+	
+	char str[12] ;
+	sprintf(str, "%d", level);
+	LCD_SetCursor(200, 220);
+	LCD_SetTextColor(RED, DARKCYAN);
+	LCD_Printf(str);
 
-//	LCD_FillScreen(BLACK); 
-	//PWM TRIG START
+//PWM TRIG START
 	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
 	
 	//START ECHO CAPTURE TIMERS
@@ -401,8 +549,19 @@ int main(void)
 	
 	
 	HAL_UART_Receive_IT(&huart6, &Rx_data, sizeof(Rx_data));
-	HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_3);
+	HAL_TIM_IC_Start_IT(&htim10, TIM_CHANNEL_1);
 	TIM1->CCR2 = TIM1->ARR/2;	unsigned int a = 0;
+	
+	//DMA
+
+	
+//	HAL_TIM_PWM_Start_DMA(&htim4, TIM_CHANNEL_2, (uint32_t *)tab, TABLE_LENGTH_DMA);		
+	tab = tab_value2;
+		
+	constante	= pow(5, 0.1666666666667);
+
+
+	
 	
 	printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ \r\n");
   /* USER CODE END 2 */
@@ -412,6 +571,39 @@ int main(void)
 //	
 while (1)
 {
+	//////////////////////DEBUT_DMA////////////////////////////
+//		flag_done_DMA = 0;
+//		
+//		for (i=0;i<TABLE_LENGTH_DMA;i++) {
+//				double modulo = (i%((int)(periode)));
+//				A = 1+k*sin(4*pi*((float) i)*(1/80000.0));
+//				double value = 1000*A;
+//				if(modulo < periode/2)
+//					value = 0*A;
+//				tab[i]=(int) value;
+//		}
+//		
+//		while (flag_done_DMA == 0);
+//		
+//		if(a_DMA==5){
+//			periode/=constante;
+//			a_DMA=0;
+//			zz++;
+//		}
+//		
+//		if(zz==6){
+//			constante = 1/constante; 
+//		}
+//		
+//		
+//		if(zz==12){
+//			constante = 1/constante; 
+//			zz=0;
+//			periode=100.00;
+//		}
+//		
+//		a_DMA++;
+	/////////////////////FIN_DMA////////////////////////////
 //	if(flag_send == 1)
 //		{
 
@@ -524,11 +716,27 @@ while (1)
     /* USER CODE BEGIN 3 */
 		
 		//Random movements for Tetris
+		if(local_time == 20000000)
+		{
+			level= 1;
+		}
+
 		if (updateField()){ // Quand "updateField" renvoie 1, la partie est perdue.
-			LCD_FillScreen(DARKGREY); 
+			LCD_FillScreen(DARKCYAN); 
 			initializeField();
 			displayField();
-    }
+			LCD_DrawRect(80, 20, 100, 30, RED);
+			LCD_DrawChar(90, 30, 'T', RED, DARKCYAN, 2);	LCD_DrawChar(100, 30, 'E', RED, DARKCYAN, 2);	LCD_DrawChar(110, 30, 'T', RED, DARKCYAN, 2);	LCD_DrawChar(120, 30, 'R', RED, DARKCYAN, 2);	LCD_DrawChar(130, 30, 'I', RED, DARKCYAN, 2);	LCD_DrawChar(140, 30, 'S', RED, DARKCYAN, 2);
+			LCD_DrawChar(200, 60, 'L', RED, DARKCYAN, 3);	LCD_DrawChar(200, 90, 'E', RED, DARKCYAN, 3);	LCD_DrawChar(200, 120, 'V', RED, DARKCYAN, 3);	LCD_DrawChar(200, 150, 'E', RED, DARKCYAN, 3);	LCD_DrawChar(200, 180, 'L', RED, DARKCYAN, 3);
+			char str[12] ;
+			sprintf(str, "%d", level);
+			LCD_SetCursor(200, 220);
+			LCD_SetTextColor(RED, DARKCYAN);
+			LCD_Printf(str);
+		}
+		switch (level)
+		{
+			case(0)://LVL0
     HAL_Delay(25);
 //    randomDisplaceOrRotate(); // Mouvements aléatoires pour simuler une partie.
 		
@@ -538,10 +746,15 @@ while (1)
 //		displaceTetrimino(0, 1, &tetrimino);
 //		displaceTetrimino(0, -1, &tetrimino);
 		
-		selectRow(1);
-    HAL_Delay(10);
+//		selectRow(1);
+//    HAL_Delay(10);
 
-    HAL_Delay(125);
+    HAL_Delay(125);break;
+					case(1)://LVL1
+    HAL_Delay(25);
+    HAL_Delay(100);break;
+		}
+
   }
   /* USER CODE END 3 */
 }
@@ -617,7 +830,7 @@ return ch;
 void HAL_SYSTICK_Callback(void) 
 {    
 	local_time++;
-	if (local_time%1000 == 0)
+	if (local_time%100 == 0)
 	{
 		token25 = 1;
 	}
@@ -657,6 +870,16 @@ void HAL_SYSTICK_Callback(void)
 //    else {
 //        rotate = false;
 //    }
+}
+
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
+	
+	HAL_TIM_PWM_Start_DMA(&htim4, TIM_CHANNEL_2, (uint32_t *)tab, TABLE_LENGTH_DMA);
+
+	if (tab == tab_value1) tab = tab_value2;
+	else tab = tab_value1;
+	
+  flag_done_DMA	= 1;
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) 
@@ -707,7 +930,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 //	if(htim->Instance == TIM3)
 //	{
-	    if(htim->Instance == TIM4){
+	    if(htim->Instance == TIM10){
         if(changement)HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
         else HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_2);
     }

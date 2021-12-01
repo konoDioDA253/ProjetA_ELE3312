@@ -90,6 +90,8 @@ void Error_Handler(void);
 #define R4_GPIO_Port GPIOC
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define TIM4CH2_FOR_DMA_Pin GPIO_PIN_7
+#define TIM4CH2_FOR_DMA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
