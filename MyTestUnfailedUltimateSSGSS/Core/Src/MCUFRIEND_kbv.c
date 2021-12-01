@@ -1,4 +1,4 @@
-//#define ECRAN1
+#define ECRAN1
 
 #ifdef ECRAN1
 #else
