@@ -716,7 +716,8 @@ while (1)
     /* USER CODE BEGIN 3 */
 		
 		//Random movements for Tetris
-		if(local_time == 20000000)
+		
+		if(local_time >= 20000)
 		{
 			level= 1;
 		}
