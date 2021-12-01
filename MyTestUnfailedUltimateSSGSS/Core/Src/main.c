@@ -25,7 +25,6 @@
 #include "usart.h"
 #include "gpio.h"
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
@@ -207,7 +206,9 @@ void copy( uint8_t* myArray, int index)
 void paste(	uint8_t* buffer,  int row)
 {	
 	for(int i=0; i<FIELD_W;i++){
-		Field[row][i]= buffer[i];
+		if(buffer[i]!=0){
+		Field[row][i]= buffer[i];//buffer[i];
+		}
 	}
 }
 
@@ -281,22 +282,43 @@ bool updateField()
 				break;
 			}
 		}
-//		if ( nLinesToErase == 2) //commencer transmission 1 ligne
-//		{
-//			//appel copy
-//			copy((uint8_t*)&data, indexLine);
-//		}
-		copy((uint8_t*)&data, indexLine);
+		if ( nLinesToErase == 2) //commencer transmission 1 ligne
+		{
+			//appel copy
+			copy((uint8_t*)&data, indexLine);
+			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+		}
+		if ( nLinesToErase == 3) //commencer transmission 1 ligne
+		{
+			//appel copy
+			copy((uint8_t*)&data, indexLine);
+			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+			eraseLine(indexLine);
+		}
+		if ( nLinesToErase == 4) //commencer transmission 1 ligne
+		{
+			//appel copy
+			copy((uint8_t*)&data, indexLine);
+			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+			copy((uint8_t*)&data, indexLine+1);
+			eraseLine(indexLine);
+			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+			
+			eraseLine(indexLine+1);
+		}
+//		copy((uint8_t*)&data, indexLine);
 
 		if(flag_done == 1) //réception complète
 		{
 			//appel paste
+			flag_done =0;
 			paste(((uint8_t*)&Rx_buffer), indexEmpty);
-			
+			displayField();
 		}
 		
 		
-			HAL_UART_Transmit_DMA(&huart6, data, sizeof(data));
+			
+		
 
 		// Réinitialiser le tetrmino et vérifier s'il y a une erreur.
 		bool lostGame = resetTetrimino(&tetrimino);
@@ -408,11 +430,7 @@ while (1)
 //					
 //					
 					
-					if(flag_done == 1){
-						flag_done = 0;
-						print_array(&Rx_buffer[0], y);
-					}		
-			
+					
 			
 //		}		
 //		while(token25 == 0);
@@ -420,6 +438,7 @@ while (1)
 //		printf("La distance3 en centimetres est : %f\r\n",tab_valueX[3]);
 //		printf("La distance2 en centimetres est : %f\r\n",tab_valueX[2]);
 		printf("InedxEmtpy is : %d\r\nInedxLine is : %d\r\n", indexEmpty, indexLine);
+				///////////////////////SONAR_BEGIN/////////////////////////
 		if(a%2 ==0)
 		{
 //			printf("\n\nLa distanceY3 en centimetres est : %f\r\nLa distanceY2 en centimetres est : %f\r\nLa distanceY1 en centimetres est : %f\r\nLa distanceY0 en centimetres est : %f\r\n",tab_valueY[3],tab_valueY[2],tab_valueY[1],tab_valueY[0]);
@@ -499,7 +518,7 @@ while (1)
 		{
 			a++;
 		}
-		
+		///////////////////////SONAR_END/////////////////////////
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -519,8 +538,8 @@ while (1)
 //		displaceTetrimino(0, 1, &tetrimino);
 //		displaceTetrimino(0, -1, &tetrimino);
 		
-//		selectRow(1);
-//    HAL_Delay(10);
+		selectRow(1);
+    HAL_Delay(10);
 
     HAL_Delay(125);
   }
@@ -609,9 +628,6 @@ void HAL_SYSTICK_Callback(void)
 		compteur = 0;
 		compteur_end++;
 	}
-//	if(compteur_end >= 22){
-//		flag_send = 0;
-//	}
 	//Tetris with manual keyboard commands :
 //	 static bool left = false;
 //    static bool right = false;
@@ -648,11 +664,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	
 	switch (current_state){
 		case 0:
-			if (Rx_data == 255){
-				for(unsigned int i = 0; i < FIELD_W; i++)
+			for(unsigned int i = 0; i < FIELD_W; i++)
 				{
 					Rx_buffer[i] = 0;
 				}
+			if (Rx_data == 255){
+				
 				current_state = 1;
 				y = 0;
 			}
@@ -667,8 +684,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				{
 					Rx_data = 0;					
 				}
+				
 				Rx_buffer[y] = Rx_data;
-				flag_done = 1;
 				y++;
 			}
 			break;

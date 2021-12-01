@@ -3,7 +3,7 @@
 <title>Static Call Graph - [MyTestUnfailedUltimateSSGSS\MyTestUnfailedUltimateSSGSS.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image MyTestUnfailedUltimateSSGSS\MyTestUnfailedUltimateSSGSS.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Nov 30 18:23:47 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Nov 30 21:59:14 2021
 <BR><P>
 <H3>Maximum Stack Usage =        308 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -353,7 +353,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 </UL>
 
-<P><STRONG><a name="[f4]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
+<P><STRONG><a name="[f3]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -565,6 +565,7 @@ Global Symbols
 
 <P><STRONG><a name="[c8]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin))
 <BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectRow
 </UL>
 
 <P><STRONG><a name="[66]"></a>HAL_GetTick</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_hal.o(i.HAL_GetTick))
@@ -932,7 +933,7 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
 </UL>
 
-<P><STRONG><a name="[a8]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, main.o(i.HAL_UART_RxCpltCallback))
+<P><STRONG><a name="[a8]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, main.o(i.HAL_UART_RxCpltCallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HAL_UART_RxCpltCallback
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Receive_IT
@@ -954,7 +955,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Start_IT
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 </UL>
 
 <P><STRONG><a name="[a2]"></a>HAL_UART_TxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_hal_uart.o(i.HAL_UART_TxCpltCallback))
@@ -1364,8 +1365,7 @@ Global Symbols
 <P><STRONG><a name="[f2]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_array
-<LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[10e]"></a>__c89printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0printf), UNUSED)
@@ -1416,11 +1416,11 @@ Global Symbols
 <P><STRONG><a name="[f8]"></a>copy</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, main.o(i.copy))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = copy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 </UL>
 
 <P><STRONG><a name="[e4]"></a>copyTetrimino</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, tetris.o(i.copyTetrimino))
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 </UL>
 
@@ -1443,7 +1443,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;detectWallCollision
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;detectBlockCollision
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 </UL>
 
@@ -1461,7 +1461,7 @@ Global Symbols
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;detectCollision
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;copyTetrimino
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1470,7 +1470,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_FillRect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1483,7 +1483,7 @@ Global Symbols
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initializeField
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 </UL>
 
 <P><STRONG><a name="[ec]"></a>displayPreviewTetrimino</STRONG> (Thumb, 94 bytes, Stack size 24 bytes, tetris.o(i.displayPreviewTetrimino))
@@ -1504,7 +1504,7 @@ Global Symbols
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initializeField
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 </UL>
 
 <P><STRONG><a name="[e6]"></a>displayTetrimino</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, tetris.o(i.displayTetrimino))
@@ -1512,7 +1512,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_FillRect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;resetTetrimino
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 </UL>
@@ -1520,7 +1520,7 @@ Global Symbols
 <P><STRONG><a name="[f7]"></a>eraseLine</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, tetris.o(i.eraseLine))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = eraseLine
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 </UL>
 
 <P><STRONG><a name="[ee]"></a>erasePreviewTetrimino</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, tetris.o(i.erasePreviewTetrimino))
@@ -1536,7 +1536,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_FillRect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 </UL>
 
@@ -1560,17 +1560,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[42]"></a>main</STRONG> (Thumb, 492 bytes, Stack size 24 bytes, main.o(i.main))
+<P><STRONG><a name="[42]"></a>main</STRONG> (Thumb, 478 bytes, Stack size 24 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 308<LI>Call Chain = main &rArr; updateField &rArr; displayScore &rArr; LCD_Printf &rArr; LCD_DrawChar &rArr; LCD_FillRect &rArr; LCD_SetAddrWindow &rArr; WriteCmdParam4 &rArr; WriteCmdParamN
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
+<BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateTetrimino
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initializeField
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayField
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displaceTetrimino
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetRotation
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_FillScreen
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Begin
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART6_UART_Init
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM4_Init
@@ -1585,23 +1585,15 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IC_Start_IT
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_array
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;selectRow
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[f9]"></a>paste</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(i.paste))
-<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
-</UL>
-
-<P><STRONG><a name="[f3]"></a>print_array</STRONG> (Thumb, 50 bytes, Stack size 24 bytes, main.o(i.print_array))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = print_array &rArr; __2printf
-</UL>
-<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[f9]"></a>paste</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, main.o(i.paste))
+<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 </UL>
 
 <P><STRONG><a name="[f1]"></a>resetTetrimino</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, tetris.o(i.resetTetrimino))
@@ -1614,10 +1606,10 @@ Global Symbols
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initializeField
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateField
 </UL>
 
-<P><STRONG><a name="[f5]"></a>rotateTetrimino</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, tetris.o(i.rotateTetrimino))
+<P><STRONG><a name="[f4]"></a>rotateTetrimino</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, tetris.o(i.rotateTetrimino))
 <BR><BR>[Stack]<UL><LI>Max Depth = 180<LI>Call Chain = rotateTetrimino &rArr; eraseTetrimino &rArr; LCD_FillRect &rArr; LCD_SetAddrWindow &rArr; WriteCmdParam4 &rArr; WriteCmdParamN
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eraseTetrimino
@@ -1628,7 +1620,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f6]"></a>updateField</STRONG> (Thumb, 298 bytes, Stack size 32 bytes, main.o(i.updateField))
+<P><STRONG><a name="[f6]"></a>selectRow</STRONG> (Thumb, 114 bytes, Stack size 24 bytes, main.o(i.selectRow))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = selectRow
+</UL>
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+</UL>
+<BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[f5]"></a>updateField</STRONG> (Thumb, 398 bytes, Stack size 32 bytes, main.o(i.updateField))
 <BR><BR>[Stack]<UL><LI>Max Depth = 284<LI>Call Chain = updateField &rArr; displayScore &rArr; LCD_Printf &rArr; LCD_DrawChar &rArr; LCD_FillRect &rArr; LCD_SetAddrWindow &rArr; WriteCmdParam4 &rArr; WriteCmdParamN
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;resetTetrimino
