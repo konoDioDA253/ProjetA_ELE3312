@@ -74,6 +74,8 @@ void Error_Handler(void);
 #define C1_GPIO_Port GPIOC
 #define C2_Pin GPIO_PIN_5
 #define C2_GPIO_Port GPIOC
+#define C3_Pin GPIO_PIN_13
+#define C3_GPIO_Port GPIOB
 #define ECHO_TIM3_CH3_Pin GPIO_PIN_8
 #define ECHO_TIM3_CH3_GPIO_Port GPIOC
 #define TMS_Pin GPIO_PIN_13
@@ -90,8 +92,8 @@ void Error_Handler(void);
 #define R4_GPIO_Port GPIOC
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
-#define TIM4CH2_FOR_DMA_Pin GPIO_PIN_7
-#define TIM4CH2_FOR_DMA_GPIO_Port GPIOB
+#define TIM4_CH2_FOR_DMA_Pin GPIO_PIN_7
+#define TIM4_CH2_FOR_DMA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

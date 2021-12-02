@@ -9,7 +9,6 @@
  * Veuillez vous référer au fichier d'en-tête pour consuler la documentation
  * des fonctions.
  */
-
 // Valeurs
 char Field [FIELD_H][FIELD_W] = {0};
 Tetrimino tetrimino = {0};

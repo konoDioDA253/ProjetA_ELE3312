@@ -97,6 +97,7 @@ const float pi = 3.14159265358979323846;
 
 
 ///Project Variables
+bool startScreen = true;
 volatile int Rise_Fall_State = 0;
 volatile int token25 =-1;
 volatile int local_time = 0;
@@ -133,6 +134,7 @@ volatile int flag_done = 0;
 volatile int flag_reset = 0;
 static int y = 0;
 int x = 0;
+
 uint8_t data[FIELD_W+2];
 volatile uint8_t Rx_data;
 volatile uint8_t Rx_buffer[FIELD_W];
@@ -164,6 +166,75 @@ void SystemClock_Config(void);
 
 void print_array(uint8_t* myArray, int size);
 
+void SetLCD(void)
+{
+	LCD_Begin();
+	HAL_Delay(20);
+	LCD_SetRotation(0);
+//	LCD_InvertDisplay(false);
+	LCD_FillScreen(BLACK);
+}
+
+void Menustart(uint16_t Color1, uint16_t Color2, uint16_t Color3, uint16_t Color4)
+{
+	LCD_SetCursor(10, 50);
+	LCD_SetTextColor(WHITE, Color1);
+	LCD_Printf("SANIC TETRIS");
+
+	LCD_SetCursor(10, 100);
+	LCD_SetTextColor(WHITE,Color2);
+	LCD_Printf("Select mode:");
+	
+	LCD_SetCursor(25, 200);
+	LCD_SetTextColor(WHITE,Color3);
+	LCD_Printf("->MODE SOLO");
+	
+	LCD_SetCursor(25, 250);
+	LCD_SetTextColor(WHITE,Color4);
+	LCD_Printf("->MODE DUEL");
+}
+
+void SelectSize(uint16_t Color1, uint16_t Color2, uint16_t Color3, uint16_t Color4)
+{
+	LCD_SetCursor(10, 50);
+	LCD_SetTextColor(WHITE, Color1);
+	LCD_Printf("SANIC TETRIS");
+
+	LCD_SetCursor(10, 100);
+	LCD_SetTextColor(WHITE,Color2);
+	LCD_Printf("Select size:");
+	
+	LCD_SetCursor(25, 200);
+	LCD_SetTextColor(WHITE,Color3);
+	LCD_Printf("->SMALL");
+	
+	LCD_SetCursor(25, 250);
+	LCD_SetTextColor(WHITE,Color4);
+	LCD_Printf("->BIG");
+}
+
+void SelectDifficulty(uint16_t Color1, uint16_t Color2, uint16_t Color3, uint16_t Color4)
+{
+	LCD_SetCursor(20, 100);
+	LCD_SetTextColor(WHITE, Color1);
+	LCD_Printf("-> INDUS");
+	
+	LCD_SetCursor(20, 125);
+	LCD_SetTextColor(WHITE,Color2);
+	LCD_Printf("-> EASY");
+	
+	LCD_SetCursor(20, 150);
+	LCD_SetTextColor(WHITE, Color3);
+	LCD_Printf("-> MEDIUM");
+	
+	LCD_SetCursor(20, 175);
+	LCD_SetTextColor(WHITE, Color4);
+	LCD_Printf("-> HARD");
+	
+	LCD_SetTextColor(WHITE, BLACK);
+}
+
+
 
 void selectRow (int r) 
 {
@@ -182,11 +253,10 @@ int readCol()
 	int result = 0;
 	if (HAL_GPIO_ReadPin(C1_GPIO_Port, C1_Pin) == GPIO_PIN_RESET) result += 1;
 	if (HAL_GPIO_ReadPin(C2_GPIO_Port, C2_Pin) == GPIO_PIN_RESET) result += 2;
-//	if (HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin) == GPIO_PIN_RESET) result += 4;
+	if (HAL_GPIO_ReadPin(C3_GPIO_Port, C3_Pin) == GPIO_PIN_RESET) result += 4;
 	if (HAL_GPIO_ReadPin(C4_GPIO_Port, C4_Pin) == GPIO_PIN_RESET) result += 8;
 	return result;
 }
-
 
 int keyPressed() 
 {
@@ -213,6 +283,7 @@ int keyPressed()
 	}
 	return -1;
 }
+
 
 void copy( uint8_t* myArray, int index)
 {
@@ -454,9 +525,7 @@ bool updateField()
 			displayField();
 		}
 		
-		
-			
-		
+				
 
 		// Réinitialiser le tetrmino et vérifier s'il y a une erreur.
 		bool lostGame = resetTetrimino(&tetrimino);
@@ -516,7 +585,7 @@ int main(void)
 	LCD_Begin();
 	HAL_Delay(20);
 	LCD_SetRotation(0);
-	LCD_FillScreen(BLACK);
+//	LCD_FillScreen(BLACK);
 	//LCD_DrawFastHLine(0, 160, 240, YELLOW);
 //	LCD_DrawCircle(N/2, N/2, 15, WHITE);
 	//LCD_DrawRect(20, 40, 202, 240, RED);
@@ -525,6 +594,78 @@ int main(void)
 //	HAL_TIM_Base_Start_IT(&htim2);
 
 //	HAL_ADC_Start_DMA(&hadc1, tab, TABLE_LENGTH);
+		#undef FIELD_H
+		#undef FIELD_W
+
+		Menustart(WHITE,WHITE,WHITE,WHITE);
+		while(startScreen == true)
+		{
+			int key = keyPressed();
+			if( (key == 0) || (key == 1) || (key == 2) || (key == 3) ) //rangée 0
+			{
+					printf("Bouton pese numero %d\r\n", key);
+					SetLCD();
+					Menustart(WHITE,WHITE,WHITE,RED);
+					
+				
+			}
+			if( (key == 4) || (key == 5) || (key == 6) || (key == 7) ) //rangée 1
+			{
+					SetLCD();
+					Menustart(WHITE,WHITE,RED,WHITE);
+			}
+			
+			if( (key == 8) || (key == 9) || (key == 10) || (key == 11) ) //rangée 2
+			{
+				break;
+			}
+//			if( (key == 12 || (key == 13) || (key == 14) || (key == 15) ) //rangée 3
+//			{
+//				
+//			}
+			else {			printf("Bouton non pese\r\n");}
+		}
+		SetLCD();
+		SelectSize(WHITE, WHITE, WHITE, WHITE);	
+
+		while(startScreen == true)
+		{
+			
+			int key = keyPressed();
+			if( (key == 0) || (key == 1) || (key == 2) || (key == 3) ) //rangée 0
+			{
+					printf("Bouton pese numero %d\r\n", key);
+					SetLCD();
+					SelectSize(WHITE, WHITE, WHITE, RED);	
+					#undef FIELD_H
+					#define FIELD_H 16 // Nombre de rangées.
+					#undef FIELD_W
+					#define FIELD_W 10 // Nombre de colonnes.
+					char Field [FIELD_H][FIELD_W];
+					uint8_t data[FIELD_W+2];
+					volatile uint8_t Rx_buffer[FIELD_W];
+			}
+			if( (key == 4) || (key == 5) || (key == 6) || (key == 7) ) //rangée 1
+			{
+					SetLCD();
+					SelectSize(WHITE, WHITE, RED, WHITE);
+					#undef FIELD_H
+					#define FIELD_H 20 // Nombre de rangées.
+					#undef FIELD_W
+					#define FIELD_W 14 // Nombre de colonnes.
+					char Field [FIELD_H][FIELD_W];
+					uint8_t data[FIELD_W+2];
+					volatile uint8_t Rx_buffer[FIELD_W];
+			}
+			
+			if( (key == 8) || (key == 9) || (key == 10) || (key == 11) ) //rangée 2
+			{
+				startScreen= false;
+				
+			}
+			
+		}
+	SetLCD();
 
 		//Tetris
 	LCD_FillScreen(DARKCYAN); 
@@ -562,7 +703,6 @@ int main(void)
 
 
 	
-	
 	printf("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ \r\n");
   /* USER CODE END 2 */
 
@@ -571,39 +711,7 @@ int main(void)
 //	
 while (1)
 {
-	//////////////////////DEBUT_DMA////////////////////////////
-//		flag_done_DMA = 0;
-//		
-//		for (i=0;i<TABLE_LENGTH_DMA;i++) {
-//				double modulo = (i%((int)(periode)));
-//				A = 1+k*sin(4*pi*((float) i)*(1/80000.0));
-//				double value = 1000*A;
-//				if(modulo < periode/2)
-//					value = 0*A;
-//				tab[i]=(int) value;
-//		}
-//		
-//		while (flag_done_DMA == 0);
-//		
-//		if(a_DMA==5){
-//			periode/=constante;
-//			a_DMA=0;
-//			zz++;
-//		}
-//		
-//		if(zz==6){
-//			constante = 1/constante; 
-//		}
-//		
-//		
-//		if(zz==12){
-//			constante = 1/constante; 
-//			zz=0;
-//			periode=100.00;
-//		}
-//		
-//		a_DMA++;
-	/////////////////////FIN_DMA////////////////////////////
+	
 //	if(flag_send == 1)
 //		{
 

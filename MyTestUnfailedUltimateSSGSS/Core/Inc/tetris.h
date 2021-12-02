@@ -43,12 +43,31 @@
  * Taille d'un bloc en nombre de pixels.
  */
 #define BLOCK_SIZE 10
-
 /**
  * Dimensions du puits.
  */
+ 
 #define FIELD_H 18 // Nombre de rangées.
 #define FIELD_W 12 // Nombre de colonnes.
+
+
+
+//#define FIELD_H 16 // Nombre de rangées.
+//#define FIELD_W 10 // Nombre de colonnes.
+	
+//#ifdef SMALL
+//#undef FIELD_H
+//#undef FIELD_W
+//#define FIELD_H 16 // Nombre de rangées.
+//#define FIELD_W 10 // Nombre de colonnes.
+//#else
+//#undef FIELD_H
+//#undef FIELD_W
+//#define FIELD_H 20 // Nombre de rangées.
+//#define FIELD_W 14 // Nombre de colonnes.
+//#endif
+
+
 
 /**
  * Position à l'écran du coin supérieur gauche du puits.
@@ -68,6 +87,8 @@
 #define PREVIEW_TOP_LEFT_X 0
 #define PREVIEW_TOP_LEFT_Y 100
 
+
+
 /**
  * Matrice du jeu. Chaque cellule du tableau contient un octet qui indique un
  * type de bloc.
@@ -75,7 +96,9 @@
  * Quand un élément du tableau est nul, cette case est vide et ne contient pas
  * de bloc. Sinon, elle contient un bloc qui peut entraîner une collision.
  */
+ 
 extern char Field [FIELD_H][FIELD_W];
+
 
 /**
  * Tetrimino mobile. Il n'y en a qu'un seul par partie. Une fois qu'il
